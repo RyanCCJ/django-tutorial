@@ -18,4 +18,5 @@
 
 ### 參考書目
 本教學系列文主要參考「Python新手使用Django架站技術實作：活用Django 2.0 Web Framework建構動態網站的16堂課」(2018/07)，可至各大實體或網路通路選購。
+
 <img src='mysite/static/images/book.png' width='200'/>
