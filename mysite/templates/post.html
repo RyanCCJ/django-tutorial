@@ -1,0 +1,66 @@
+<!-- post.html -->
+{% extends 'base.html' %}
+{% block title %} 文章閱覽 {% endblock %}
+{% block sidebar %} 
+{% include 'sidebar1.html' %}
+{% endblock %}
+{% block content %}
+<div class='card'>
+    <div class='card-header fs-5 fw-bold'>
+            {{ post.title }}
+    </div>
+    <div class='card-body'>
+            {{ post.content | linebreaks }}
+    </div>
+    <div class='card-footer text-muted'>
+        <small>發布時間：{{ post.date | date:"Y M d, H:i"}}</small>
+    </div>
+</div>
+<br>
+<div class="card">
+    <div class="card-header fs-5 fw-bold">
+        留言
+    </div>
+    <div class='card-body'>
+        {% if comments %}
+        {% for comment in comments %} 
+        <div class='card'>
+            <div class="card-body">
+                <h5>{{ comment.author.nickname }}</h5>
+                <p>{{ comment.content }}</p>
+                <small>發布時間：{{ comment.date | date:"Y M d, H:i"}}</small>
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+        {% else %}
+            <p>目前還沒有人留言喔！</p>
+        {% endif %}
+    </div>
+</div>
+<br>
+<div class="card">
+    <div class="card-header fs-5 fw-bold">
+        發表您的留言 ...
+    </div>
+    {% if message %} 
+    <div class="alert alert-warning">{{ message }}</div>
+    {% endif %}
+    <div class='card-body'>
+        <form name="comment" method="POST">
+            {% csrf_token %}
+            <label for="user_id">你的暱稱：</label>
+            <input type="text" id="user_id" name="user_id">
+            <label for="user_pass">密碼：</label>
+            <input type="password" id="user_pass" name="user_pass" class="mb-2">
+            <br>
+            <textarea name="user_comment" rows="5" cols="60"></textarea>
+            <br>
+            <input type="submit" value="張貼">
+            <input type="reset" value="清除">
+        </form>
+    </div>
+</div>
+<br>
+<a href='/' class='link-secondary ms-2 pb-4'>回首頁</a>
+{% endblock %}

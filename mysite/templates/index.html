@@ -1,0 +1,38 @@
+<!-- index.html -->
+{% extends 'base.html' %}
+{% block title %} 首頁 {% endblock %}
+{% block sidebar %} 
+{% include 'sidebar1.html' %}
+{% endblock %}
+{% block content %}
+{% for post in posts %}
+<div class='card'>
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{ post.image.url }}" class="img-fluid rounded">
+		</div>
+        <div class="col-md-8">
+            <div class='card-header fs-5 fw-bold'>
+                <div class="row">
+                    <div class="col-md-8">
+                        <a href='/post/{{ post.slug }}' class="link-secondary">{{ post.title }}</a>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-end text-secondary fs-6 pt-1">
+                            作者：{{ post.author.nickname }}
+                        </div>
+                    </div>
+                </div>   
+            </div>
+            <div class='card-body'>
+                <p class="card-text">{{ post.content | truncatechars:100 }}</p>
+                <p class="card-text">
+                    <small class='text-muted'>發布時間：{{ post.date | date:"Y M d, H:i"}}</small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

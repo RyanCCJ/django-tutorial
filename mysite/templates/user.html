@@ -1,0 +1,56 @@
+<!-- user.html -->
+{% extends 'base.html' %}
+{% block title %} 個人頁面 {% endblock %}
+{% block sidebar %} 
+{% include 'sidebar1.html' %}
+{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-header fs-5 fw-bold">
+        發佈貼文
+    </div>
+    {% if message %} 
+    <div class="alert alert-warning">{{ message }}</div>
+    {% endif %} 
+    <div class='card-body'>
+        <form name="my_post" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ post_form.as_p }}
+            <input type="submit" value="張貼" class="btn btn-outline-secondary me-2">
+            <input type="reset" value="清除" class="btn btn-outline-danger">
+        </form>  
+    </div>
+</div>
+<br>
+{% for post in posts %}
+<div class='card'>
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{ post.image.url }}" class="img-fluid rounded">
+		</div>
+        <div class="col-md-8">
+            <div class='card-header fs-5 fw-bold'>
+                <div class="row">
+                    <div class="col-md-8">
+                        <a href='/post/{{ post.slug }}' class="link-secondary">{{ post.title }}</a>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-end text-secondary fs-6 pt-1">
+                            作者：{{ post.author.nickname }}
+                        </div>
+                    </div>
+                </div>   
+            </div>
+            <div class='card-body'>
+                <p class="card-text">{{ post.content | truncatechars:100 }}</p>
+                <p class="card-text">
+                    <small class='text-muted'>發布時間：{{ post.date | date:"Y M d, H:i"}}</small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+{% endfor %}
+<a href='/' class='link-secondary ms-2 pb-4'>回首頁</a>
+{% endblock %}

@@ -1,0 +1,23 @@
+<!-- sidebar1.html -->
+{% load static %}
+{% for message in messages %} 
+    <div class="alert alert-{{message.tags}}">{{ message }}</div>
+{% endfor %}
+<div class="position-fixed me-3">
+  <img class="img-fluid rounded" src="{% static 'images/img1.jpg' %}">
+  <h5 class="mt-2">熱門文章</h5>
+  {% for post in posts %}
+  {% if forloop.counter <= 3 %}
+  <div class="my-2">
+    <a href='/post/{{ post.slug }}' class="link-secondary fw-bold me-1">{{ post.title }} : </a>
+    {{ post.content | truncatechars:12 }}
+  </div>
+  {% endif %}
+  {% endfor %}
+  <hr>
+  <img class="img-fluid rounded" src="{% static 'images/img2.jpg' %}">
+  <h5 class="mt-2">熱門主題</h5>
+  <span class="badge bg-secondary">生活</span>
+  <span class="badge bg-secondary">旅遊</span>
+  <span class="badge bg-secondary">運動</span>
+</div>

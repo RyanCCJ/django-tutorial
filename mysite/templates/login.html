@@ -1,0 +1,31 @@
+<!-- login.html -->
+{% extends 'base.html' %}
+{% block title %} 登入 {% endblock %}
+{% block sidebar %}
+{% include 'sidebar1.html' %}
+{% endblock %}
+{% block content %}
+{% load socialaccount %}
+<div class="card">
+    <div class="card-header fs-5 fw-bold">
+        用戶登入
+    </div>
+    {% if message %}
+    <div class="alert alert-warning">{{ message }}</div>
+    {% endif %}
+    <div class='card-body'>
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                {{ login_form.as_table }}
+            </table>
+            <br>
+            <input type="submit" value="登入" class="btn btn-outline-secondary me-2">
+            <input type="reset" value="清除" class="btn btn-outline-danger">
+        </form>
+        <a class="btn btn-primary mt-3" href="{% provider_login_url 'google' %}">
+            使用 Google 帳戶登入
+        </a>
+    </div>
+</div>
+{% endblock %}
